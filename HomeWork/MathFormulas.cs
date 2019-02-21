@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Runtime.Remoting;
 using System.Text;
@@ -14,7 +15,7 @@ namespace HomeWork
 
             public MathFormulas()
             {
-                //Console.Clear();
+                Console.Clear();
             }
 
             public void Circumference()
@@ -39,7 +40,8 @@ namespace HomeWork
                 var input = Console.ReadLine();
 
                 double radius = validation.CheckInput(input);
-                double volume = ((4 / 3) * pi * Math.Pow(radius, 3)) / 2;
+                double volume = (2 * pi * (Math.Pow(radius, 3)) / 3);
+  
 
                 Console.WriteLine($"Volume: {volume:f}");
                 Console.ReadLine();
@@ -62,7 +64,20 @@ namespace HomeWork
                 var c = validation.CheckInput(thirdInput);
 
                 double p = (a * b * c) / 2.0;
-                var result = Math.Sqrt(d: (p * (p - a)*(p - b)*(p - c)));
+
+                //Eliminate a side-effect, which in cases where 'p-c == 0' causes
+                //to make the end result equal zero
+
+                double firstArg = p - a;
+                if (firstArg == 0) firstArg = 1;
+
+                double secondArg = p - b;
+                if (secondArg == 0) secondArg = 1;
+
+                double thirdArg = p - c;
+                if (thirdArg == 0) thirdArg = 1;
+
+                var result = Math.Sqrt(d: (p * firstArg * secondArg * thirdArg));
 
                 Console.WriteLine($"Area of a triangle with sides {a}, {b}, {c}: {result:f} \n\n" +
                                   "\t\t\tPress any Button to continue");
